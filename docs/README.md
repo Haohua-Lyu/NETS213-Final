@@ -1,4 +1,4 @@
-# NETS213 Final Project - Overview
+# NETS213 Final Project - Documentation
 #### Group members: Yueyi Wang, Aylin Özpınar, Haohua Lyu, Deniz Enfiyeci, Jasmine Jiang
 
 ### Project Overview
@@ -8,11 +8,22 @@ Then we perform machine learning on the dating profile dataset by using k-neares
 
 We evaluate how good our matching algorithm is by evaluating it against the MTurk “gold standard” data. We also compute the correlation coefficient between our algorithm and MTurk workers’ predictions.
 
-### Files
-- In the ```docs/``` directory:
-  - ```flow_diagram.png``` is the flow diagram for our project design.
-  - ```HIT_mockup.png``` is the mockup of our first task, where we would show one profile and ask workers to choose a best match from a set of ~5 profiles. The interface of the second task would be very similar; two profiles will be shown and workers only need to indicate whether they think it is a good match.
-  - ```User_interface_mockup``` is the mockup of our final user interface. It will be a webpage, where users can input some information and expect to see best matches returned by the ML model.
-  - ```README.md``` includes the major components and story points.
-- In the ```data/``` directory: *(Deliverable 2)*
-- In the ```src/``` directory: *(Deliverable 2)*
+### Major Components
+1. Dataset Cleaning: clean datasets on OKCupid data, choose most relevant attributes - 1 pt
+
+2. HITs creation: given one profile, ask workers to choose the best match out of 5 other profiles - 1 pt
+
+3. Quality control: majority votes on whether a previously identified pair is a good match - 1 pt
+
+4. Dataset splitting: split into training, validation, test sets - 1 pt
+
+5. Model training: train a model based on KNN - 4 pt
+
+6. Fine-tuning and evaluate ML results - 2 pt
+
+7. Compare ML results with MTurk gold standards - 2 pt
+
+8. Make a user interface for custom input - 2 pt
+
+9. Write final report and prepare presentation - 2 pt
+
