@@ -16,3 +16,39 @@ We evaluate how good our matching algorithm is by evaluating it against the MTur
   - ```README.md``` includes the major components and story points.
 - In the ```data/``` directory: *(Deliverable 2)*
 - In the ```src/``` directory: *(Deliverable 2)*
+
+### Major Components & Story Points (17pts in total)
+1. Dataset Cleaning - __1 pt__
+   - We will clean the datasets on OKCupid profiles, and choose the most relevant attributes appropriate and doable for our project.
+
+2. HITs creation - __1 pt__
+   - We will create our first task on MTurk: given one profile, we will ask workers to choose the best match out of 5 other profiles. This creates the gold standards needed for comparison.
+
+3. Aggregation - __1 pt__
+   - We will download the results from MTurk and aggregate the matched pairs that are selected by workers through collections (weighted by numbers of selection).
+
+4. Quality control - __1 pt__
+   - We will create another task on MTurk, which serves as a higher level review of the first one; we will have majority votes on whether a previously identified pair is a good match.
+
+5. Dataset splitting - __1 pt__
+   - We will split the datasets into separate training, validation, and test sets, preparing them for machine learning models.
+
+6. Model training - __4 pt__
+   - We will perform machine learning on the dating profile dataset by using k-nearest neighbors: Some attributes are matched using logic rules (e.g. a straight woman's candidates will be filtered down to non-gay men). Other attributes (religion, pets, children, etc) are run through a k-nearest neighbors model.
+
+7. Fine-tuning and evaluate ML results - __2 pt__
+   - We will use the validation set to fine-tune our model, and then use test sets to evaluate the model's performance.
+
+8. Compare ML results with MTurk gold standards - __2 pt__
+   - We will evaluate how good our matching algorithm is by evaluating it against the MTurk “gold standard” data. We also compute the correlation coefficient between our algorithm and MTurk workers’ predictions.
+
+9.  Make a user interface for custom input - __2 pt__
+    - We will make a webpage, where users can input some information and expect to see best matches returned by the ML model.
+
+10. Write final report and prepare presentation - __2 pt__
+
+### Data
+__TODO__
+
+### Aggregation & Quality Control Codes
+__TODO__
