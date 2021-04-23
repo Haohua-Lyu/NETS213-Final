@@ -56,4 +56,5 @@ We evaluate how good our matching algorithm is by evaluating it against the MTur
 __TODO__
 
 ### Aggregation & Quality Control Codes
-__TODO__
+- In the aggregation module, we simply collect all the possible profile pairs from each row in the dataset, and output all the profile pairs and the corresponding ratings for each pair
+- In the Quality Control module, we use the EM Algorithm to perform quality control. We first assume the workers have perfect qualities, and use this assumption to compute the "correct" labels for each profile pairs to see if there is a match or not. We then use the labels to calculate the worker qualities and corresponding ratings, and finally determine if the current pair should be a match or not.
