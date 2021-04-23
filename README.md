@@ -53,7 +53,8 @@ We evaluate how good our matching algorithm is by evaluating it against the MTur
 10. Write final report and prepare presentation - __2 pt__
 
 ### Data
-The data we are using is called okcupid_clean.csv. Currently, it includes 12 columns and 59939 rows. Each row corresponds to a profile and each cell contains a different answer to 12 questions specified in the columns. Prior to cleaning, the data included duplicates, varying status answers, and 8 more columns. We started by removing the duplicates and standardizing the varying status answers to single, seeing someone, married, or NaN. The 8 columns dropped were diet, drugs, sign, ethnicity, income, offspring, and drinks. We did not want to use there metrics in our matching algorithm and found them irrelevant. 
+- The raw data we are using is called ```okcupid_clean.csv```. Currently, it includes 12 columns and 59939 rows. Each row corresponds to a profile and each cell contains a different answer to 12 questions specified in the columns. Prior to cleaning, the data included duplicates, varying status answers, and 8 more columns. We started by removing the duplicates and standardizing the varying status answers to single, seeing someone, married, or NaN. The 8 columns dropped were diet, drugs, sign, ethnicity, income, offspring, and drinks. We did not want to use there metrics in our matching algorithm and found them irrelevant. 
+- Our aggregation takes place before the quality control module, so the sample output for aggregation is identical to the sample input of the QC module. Aggregation module takes in worker results from MTurk and turns them to profile pairs with individual grading; QC module takes those pairs and produce labels. 
 
 ### Aggregation & Quality Control Codes
 - In the aggregation module, we simply collect all the possible profile pairs from each row in the dataset, and output all the profile pairs and the corresponding ratings for each pair
