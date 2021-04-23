@@ -14,8 +14,13 @@ We evaluate how good our matching algorithm is by evaluating it against the MTur
   - ```HIT_mockup.png``` is the mockup of our first task, where we would show one profile and ask workers to choose a best match from a set of ~5 profiles. The interface of the second task would be very similar; two profiles will be shown and workers only need to indicate whether they think it is a good match.
   - ```User_interface_mockup``` is the mockup of our final user interface. It will be a webpage, where users can input some information and expect to see best matches returned by the ML model.
   - ```README.md``` includes the major components and story points.
-- In the ```data/``` directory: *(Deliverable 2)*
-- In the ```src/``` directory: *(Deliverable 2)*
+- In the ```data/``` directory: 
+  - ```okcupid_clean.csv``` is the raw data of our project. It contains cleaned profiles of some OkCupid users, and we will use them to train classifiers and create gold standards.
+  - ```SAMPLE-INPUT-FOR-AGGREGATION.csv```, ```SAMPLE-OUTPUT-FOR-AGGREGATION.csv``` are the sample inputs/outputs of the aggregation module (```src/aggregation_module.py```).
+  - ```SAMPLE-INPUT-FOR-QC.csv```, ```SAMPLE-OUTPUT-FOR-QC.csv``` are the sample inputs/outputs of the quality control module (```src/QC-Module.py```).
+- In the ```src/``` directory: 
+  - ```aggregation_module.py``` is the Python file for the aggregation module.
+  - ```QC-Module.py``` is the Python file for the quality control module.
 
 ### Major Components & Story Points (17pts in total)
 1. Dataset Cleaning - __1 pt__
