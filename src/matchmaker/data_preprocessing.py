@@ -76,14 +76,14 @@ Preprocess input data to convert all attributes into numerical values (so they c
 """
 
 
-def preprocess_input(df=None):
+def preprocess_input(df=None, use_fitted_encoder=False):
     if df is None:
         df = load_input()
     else:
         df = df[INPUT_COLS_TO_USE]
 
     # Initialize encoders
-    scalers, ordinal_encoder = initialize_encoders()
+    scalers, ordinal_encoder = initialize_encoders(use_fitted_encoder)
 
     # Consolidates the values
     df = consolidate_values(df)
@@ -101,14 +101,19 @@ def preprocess_input(df=None):
     df.drop("religion", axis=1, inplace=True)
 
     # Apply ordinal encoding
-    ordinal_encoder.fit(df[COLS_TO_ORDINAL_ENCODE])
+    if not use_fitted_encoder:
+        ordinal_encoder.fit(df[COLS_TO_ORDINAL_ENCODE])
+        
     df[COLS_TO_ORDINAL_ENCODE] = ordinal_encoder.transform(df[COLS_TO_ORDINAL_ENCODE])
 
     # Apply scaling
     for i in range(len(COLS_TO_SCALE)):
-        scalers[i].fit(df[[COLS_TO_SCALE[i]]])
+        if not use_fitted_encoder:
+            scalers[i].fit(df[[COLS_TO_SCALE[i]]])
         df[[COLS_TO_SCALE[i]]] = scalers[i].transform(df[[COLS_TO_SCALE[i]]])
 
+    Utilities.save_encoders(scalers, ordinal_encoder)
+    
     # Remove NaN
     df[df.height.isnull()] = 0.2
 
@@ -121,23 +126,26 @@ Initialize relative scalers and encoders.
 """
 
 
-def initialize_encoders():
-    age_scaler = sk.MinMaxScaler(AGE_SCALE)
-    body_scaler = sk.MinMaxScaler(BODY_TYPE_SCALE)
-    height_scaler = sk.MinMaxScaler(HEIGHT_SCALE)
-    education_scaler = sk.MinMaxScaler(EDUCATION_SCALE)
-    smokes_scaler = sk.MinMaxScaler(SMOKES_SCALE)
+def initialize_encoders(use_fitted_encoder=False):
+    if use_fitted_encoder:
+        scalers, ordinal_encoder = Utilities.load_encoders()
+    else:
+        age_scaler = sk.MinMaxScaler(AGE_SCALE)
+        body_scaler = sk.MinMaxScaler(BODY_TYPE_SCALE)
+        height_scaler = sk.MinMaxScaler(HEIGHT_SCALE)
+        education_scaler = sk.MinMaxScaler(EDUCATION_SCALE)
+        smokes_scaler = sk.MinMaxScaler(SMOKES_SCALE)
 
-    ordinal_encoder = sk.OrdinalEncoder(
-        categories=[
-            BODY_TYPE_ORDINALITIES,
-            EDUCATION_ORDINALITIES,
-            SMOKES_ORDINALITIES,
-        ],
-        dtype=int,
-    )
+        ordinal_encoder = sk.OrdinalEncoder(
+            categories=[
+                BODY_TYPE_ORDINALITIES,
+                EDUCATION_ORDINALITIES,
+                SMOKES_ORDINALITIES,
+            ],
+            dtype=int,
+        )
 
-    scalers = [age_scaler, body_scaler, height_scaler, education_scaler, smokes_scaler]
+        scalers = [age_scaler, body_scaler, height_scaler, education_scaler, smokes_scaler]
     return scalers, ordinal_encoder
 
 

@@ -16,7 +16,7 @@ def execute(input, k=5):
     population_original = DataPreprocessing.load_input(False)
 
     # Candidates after filtering
-    candidates = filter(input, population_original)
+    candidates = Utilities.filter(input, population_original)
     # return if no candidates
     if len(candidates) == 0:
         return []
@@ -26,10 +26,7 @@ def execute(input, k=5):
     population_df = DataPreprocessing.preprocess_input()
 
     # Input_df will have fewer religion columns, we need to fix it
-    religion_cols = [col for col in population_df.columns if col.startswith("religion")]
-    religions = pd.DataFrame([[0] * len(religion_cols)], columns=religion_cols)
-    religions[input_df.iloc[:, -1].name] = input_df.iloc[:, -1]
-    input_df = pd.concat([input_df.iloc[:, :-1], religions], axis=1)
+    input_df = Utilities.add_religions(input_df)
 
     # Train the KNN model
     knn_model = NearestNeighbors(metric="braycurtis").fit(
@@ -70,37 +67,3 @@ def execute(input, k=5):
     )
 
     return neighbors_df
-
-
-# HELPER FUNCTIONS
-"""
-Filter population based on sex & orientation
-"""
-
-
-def filter(input, population):
-    sex = input["sex"][0]
-    orientation = input["orientation"][0]
-
-    candidates = population
-
-    if orientation == "straight":
-        candidates = candidates[candidates["sex"] == {"m": "f", "f": "m"}[sex]]
-        candidates = candidates[
-            candidates["orientation"].isin(["straight", "bisexual"])
-        ]
-    elif orientation == "gay":
-        candidates = candidates[candidates["sex"] == sex]
-        candidates = candidates[candidates["orientation"].isin(["gay", "bisexual"])]
-    elif orientation == "bisexual":
-        same_sex = candidates[
-            candidates["sex"] == sex
-            and candidates["orientation"].isin(["gay", "bisexual"])
-        ]
-        opposite_sex = candidates[
-            candidates["sex"] == {"m": "f", "f": "m"}[sex]
-            and candidates["orientation"].isin(["straight", "bisexual"])
-        ]
-        candidates = pd.concat([same_sex, opposite_sex])
-
-    return candidates

@@ -9,14 +9,31 @@ def main():
         [
             22,
             "a little extra",
-            "working on college/university",
-            75.0,
-            "transportation",
-            "gay",
+            "graduated from two-year college",
+            68.0,
+            "hotel",
+            "bisexual",
             "likes dogs and likes cats",
             "agnosticism and very serious about it",
             "m",
             "sometimes",
+            "english",
+            "single",
+        ],
+    ]
+    
+    compare = [
+        [
+            30,
+            "fit",
+            "working on college/university",
+            75.0,
+            "transportation",
+            "straight",
+            "likes dogs and dislikes cats",
+            "judaism and laughing about it",
+            "f",
+            "no",
             "english",
             "single",
         ],
@@ -40,6 +57,8 @@ def main():
     input_df = pd.DataFrame(input, columns=columns)
     neighbors = Model.execute(input_df)
     print(Utilities.sort_df(input_df), neighbors)
+    compare_df = pd.DataFrame(compare, columns=columns)
+    print(Utilities.calculate_match_score(input_df, compare_df, raw=True))
 
 
 if __name__ == "__main__":
