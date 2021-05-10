@@ -27,12 +27,12 @@ DIRECT_LOOKUP_FEATURES = ["sex", "orientation"]
 COLS_TO_SCALE = ["age", "body_type", "height", "education", "smokes"]
 
 AGE_SCALE = (0, 5)
-BODY_TYPE_SCALE = (0, 0.4)
-HEIGHT_SCALE = (0, 0.4)
+BODY_TYPE_SCALE = (0, 0.5)
+HEIGHT_SCALE = (0, 0.5)
 EDUCATION_SCALE = (0, 0.5)
 SMOKES_SCALE = (0, 3)
-RELIGION_SCALE = 0.5
-PETS_SCALE = {False: 0, True: 0.2}
+RELIGION_SCALE = 0.1
+PETS_SCALE = {False: 0, True: 0.1}
 
 # CATEGORICAL FEATURES TO PREDEFINED (AND CONSOLIDATED) ORDINALITIES
 COLS_TO_ORDINAL_ENCODE = ["body_type", "education", "smokes"]
@@ -85,6 +85,9 @@ def preprocess_input(df=None, use_fitted_encoder=False):
     # Initialize encoders
     scalers, ordinal_encoder = initialize_encoders(use_fitted_encoder)
 
+    # Insert another religion column so we can measure how serious they are about the religion
+    df.insert(len(df.columns), value=df['religion'], column='religion_serious')
+    
     # Consolidates the values
     df = consolidate_values(df)
 
@@ -97,6 +100,8 @@ def preprocess_input(df=None, use_fitted_encoder=False):
     # Similarly, create multiple dummy cols for religion, apply scales, and drops the original one
     religions = pd.get_dummies(df["religion"], prefix="religion")
     religions[religions == 1] = RELIGION_SCALE
+    religions = religions.mul(df['religion_serious'], axis = 0)
+    df.drop("religion_serious", axis = 1, inplace = True)
     df = pd.concat([df, religions], axis=1)
     df.drop("religion", axis=1, inplace=True)
 
@@ -263,6 +268,54 @@ def consolidate_values(df):
                 "other and very serious about it": "other",
                 "other and laughing about it": "other",
                 np.nan: "unknown",
+            },
+            "religion_serious": {
+                "atheism": 1,
+                "atheism but not too serious about it": 0.5,
+                "atheism and somewhat serious about it": 1.5,
+                "atheism and very serious about it": 2,
+                "atheism and laughing about it": 0.1,
+                "agnosticism": 1,
+                "agnosticism but not too serious about it": 0.5,
+                "agnosticism and somewhat serious about it": 1.5,
+                "agnosticism and very serious about it": 2,
+                "agnosticism and laughing about it": 0.0,
+                "buddhism": 1,
+                "buddhism but not too serious about it": 0.5,
+                "buddhism and somewhat serious about it": 1.5,
+                "buddhism and very serious about it": 2,
+                "buddhism and laughing about it": 0.1,
+                "hinduism": 1,
+                "hinduism but not too serious about it": 0.5,
+                "hinduism and somewhat serious about it": 1.5,
+                "hinduism and very serious about it": 2,
+                "hinduism and laughing about it": 0.1,
+                "islam": 1,
+                "islam but not too serious about it": 0.5,
+                "islam and somewhat serious about it": 1.5,
+                "islam and very serious about it": 2,
+                "islam and laughing about it": 0.1,
+                "judaism": 1,
+                "judaism but not too serious about it": 0.5,
+                "judaism and somewhat serious about it": 1.5,
+                "judaism and very serious about it": 2,
+                "judaism and laughing about it": 0.1,
+                "christianity": 1,
+                "christianity but not too serious about it": 0.5,
+                "christianity and somewhat serious about it": 1.5,
+                "christianity and very serious about it": 2,
+                "christianity and laughing about it": 0.1,
+                "catholicism": 1,
+                "catholicism but not too serious about it": 0.5,
+                "catholicism and somewhat serious about it": 1.5,
+                "catholicism and very serious about it": 2,
+                "catholicism and laughing about it": 0.1,
+                "other": 1,
+                "other but not too serious about it": 0.5,
+                "other and somewhat serious about it": 1.5,
+                "other and very serious about it": 2,
+                "other and laughing about it": 0.1,
+                np.nan: 1,
             },
         }
     )

@@ -12,7 +12,7 @@ def main():
             "graduated from two-year college",
             68.0,
             "hotel",
-            "bisexual",
+            "gay",
             "likes dogs and likes cats",
             "agnosticism and very serious about it",
             "m",
@@ -39,25 +39,10 @@ def main():
         ],
     ]
 
-    columns = [
-        "age",
-        "body_type",
-        "education",
-        "height",
-        "job",
-        "orientation",
-        "pets",
-        "religion",
-        "sex",
-        "smokes",
-        "speaks",
-        "status",
-    ]
-
-    input_df = pd.DataFrame(input, columns=columns)
+    input_df = pd.DataFrame(input, columns=Utilities.COLUMNS)
     neighbors = Model.execute(input_df)
     print(Utilities.sort_df(input_df), neighbors)
-    compare_df = pd.DataFrame(compare, columns=columns)
+    compare_df = pd.DataFrame(compare, columns=Utilities.COLUMNS)
     print(Utilities.calculate_match_score(input_df, compare_df, raw=True))
 
 

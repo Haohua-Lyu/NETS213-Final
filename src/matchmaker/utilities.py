@@ -26,6 +26,21 @@ SORT_ORDER = [
     r"^status$",
 ]
 
+COLUMNS = [
+        "age",
+        "body_type",
+        "education",
+        "height",
+        "job",
+        "orientation",
+        "pets",
+        "religion",
+        "sex",
+        "smokes",
+        "speaks",
+        "status",
+    ]
+
 """
 Calculate the match score(s) between the input and given profile(s)
 """
