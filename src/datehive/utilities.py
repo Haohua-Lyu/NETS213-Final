@@ -8,7 +8,7 @@ from . import data_preprocessing as DataPreprocessing
 # The following codes are inspired by https://github.com/GlenCrawford/matchmaker.
 
 # ENCODER DIR
-ENCODER_DIR = 'matchmaker/encoders/'
+ENCODER_DIR = 'datehive/encoders/'
 
 # SORT ORDER
 SORT_ORDER = [

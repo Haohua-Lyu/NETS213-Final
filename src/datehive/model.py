@@ -1,8 +1,8 @@
 import pandas as pd
 from math import floor
 from sklearn.neighbors import NearestNeighbors
-from matchmaker import data_preprocessing as DataPreprocessing
-from matchmaker import utilities as Utilities
+from . import data_preprocessing as DataPreprocessing
+from . import utilities as Utilities
 
 # The following codes are inspired by https://github.com/GlenCrawford/matchmaker.
 

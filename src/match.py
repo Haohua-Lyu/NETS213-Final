@@ -1,5 +1,5 @@
-from matchmaker import model as Model
-from matchmaker import utilities as Utilities
+from datehive import model as Model
+from datehive import utilities as Utilities
 import pandas as pd
 
 # The following codes are inspired by https://github.com/GlenCrawford/matchmaker.

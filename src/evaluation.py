@@ -1,7 +1,7 @@
 import re
 import pandas as pd
 import numpy as np
-from matchmaker import utilities as Utilities
+from datehive import utilities as Utilities
 
 def split(s):
     res = re.split('age: |, body_type: |, education: |, height: |, job: |, orientation: |, pets: |, religion: |, sex: |, smokes: |, speaks: |, status: ', s)
