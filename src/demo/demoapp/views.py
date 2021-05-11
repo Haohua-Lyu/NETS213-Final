@@ -44,7 +44,7 @@ def matches(request):
     for _, row in matches_df.iterrows():
         match = [
             row["age"],
-            row["score"],
+            row["score"] + 40,
             row["body_type"],
             row["education"],
             row["height"],
